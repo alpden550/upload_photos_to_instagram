@@ -118,7 +118,6 @@ dmypy.json
 config/
 images/
 
-#instabot
 alpden123.checkpoint
 blacklist.txt
 comments.txt
