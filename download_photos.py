@@ -9,8 +9,7 @@ def get_file_ext(url):
 
 
 def download_image(url, image_name, path='images'):
-    if not os.path.exists(path):
-        os.makedirs(path)
+    os.makedirs(path, exist_ok=True)
 
     response = requests.get(url)
     with open(f'{path}/{image_name}', 'wb') as image:
