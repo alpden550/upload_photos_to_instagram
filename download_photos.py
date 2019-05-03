@@ -12,8 +12,9 @@ def download_image(url, image_name, path='images'):
     os.makedirs(path, exist_ok=True)
 
     response = requests.get(url)
-    with open(f'{path}/{image_name}', 'wb') as image:
-        image.write(response.content)
+    if response.ok:
+        with open(f'{path}/{image_name}', 'wb') as image:
+            image.write(response.content)
 
 
 if __name__ == "__main__":

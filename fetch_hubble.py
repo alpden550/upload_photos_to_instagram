@@ -6,8 +6,8 @@ def get_id_from_hubble_collections(collections, hubble_url='http://hubblesite.or
     photos_id = []
     for collection in collections:
         url = f'{hubble_url}/{collection}'
-        response = requests.get(url).json()
-        photos = [photo.get('id') for photo in response]
+        response = requests.get(url)
+        photos = [photo.get('id') for photo in response.json()]
         photos_id.extend(photos)
     return photos_id
 
@@ -15,10 +15,10 @@ def get_id_from_hubble_collections(collections, hubble_url='http://hubblesite.or
 def download_hubble_image(url='http://hubblesite.org/api/v3/image/', image_id=1):
     url = f'{url}/{image_id}'
     response = requests.get(url).json()
-
-    image_url = response.get('image_files')[-1].get('file_url')
-    image_name = get_file_ext(image_url)
-    download_image(url=image_url, image_name=f'hubble_photo_{image_id}{image_name}')
+    if response:
+        image_url = response.get('image_files')[-1].get('file_url')
+        image_name = get_file_ext(image_url)
+        download_image(url=image_url, image_name=f'hubble_photo_{image_id}{image_name}')
 
 
 if __name__ == "__main__":
